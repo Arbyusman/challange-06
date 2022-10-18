@@ -20,8 +20,13 @@ async function comparePassword(password, encryptPassword) {
   }
 }
 
-function createWebToken(payload){
-    return jwt.sign(payload, 'P455w00rd!!!');
+const secret_key = "P@5swO0rd!!!";
+
+function createWebToken(payload) {
+  return jwt.sign(payload, secret_key);
+}
+function verifyToken(token) {
+  return jwt.verify(token, secret_key);
 }
 
 module.exports = {
@@ -49,7 +54,10 @@ module.exports = {
       }
 
       const { password: encryptedPassword } = user;
-      const isAuthenticated = await comparePassword(password, encryptedPassword);
+      const isAuthenticated = await comparePassword(
+        password,
+        encryptedPassword
+      );
 
       if (!isAuthenticated) {
         return false;
@@ -58,15 +66,25 @@ module.exports = {
       const token = createWebToken({
         id: user.id,
         email: user.email,
-      })
+      });
 
-      const data={
+      const data = {
         ...user.dataValues,
-        token
-      }
+        token,
+      };
       return data;
-      
     } catch (err) {
+      throw err;
+    }
+  },
+
+ async authorize(token) {
+    try{
+      const payload = verifyToken(token);
+      const id = payload.id;
+      const user = userRepository.finduserByPk(id);
+      return user;
+    }catch(err){
       throw err;
     }
   },
