@@ -82,7 +82,7 @@ module.exports = {
     try{
       const payload = verifyToken(token);
       const id = payload.id;
-      const user = userRepository.finduserByPk(id);
+      const user = await userRepository.finduserByPk(id);
       return user;
     }catch(err){
       throw err;

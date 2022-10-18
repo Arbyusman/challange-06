@@ -9,8 +9,8 @@ module.exports = {
     return user.findOne({where:condition})
   },
 
-  finduserByPK(id){
-    return user.findByPk(id)
+  finduserByPk(id){
+    return user.findByPk(id);
   }
    
 };

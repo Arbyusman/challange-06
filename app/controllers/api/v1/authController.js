@@ -52,7 +52,7 @@ module.exports = {
     const bearerToken = req.headers.authorization;
     if (!bearerToken) {
         res.status(403).json({
-          message: "Unauthorized",
+          message: "Unauthorized 1",
         });
         return;
       }
@@ -61,19 +61,21 @@ module.exports = {
     authService
       .authorize(token)
       .then((user) => {   
-        if (!bearerToken) {
+        if (!user) {
           res.status(403).json({
-            message: "Unauthorized",
+            message: "Unauthorized 2",
           });
           return;
+      
         }    
         req.user = user;
         next();
       })
       .catch((err) => {
         res.status(403).json({
-          message: "Unauthorized",
+          message: "Unauthorized 3",
         });
+        
         return;
       });
   },
