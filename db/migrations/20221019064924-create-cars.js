@@ -16,33 +16,29 @@ module.exports = {
         type: Sequelize.INTEGER
         
       },
+      car_image: {
+        type: Sequelize.STRING
+        
+      },
       size_car: {
-        type: Sequelize.INTEGER,
-        references:{
-          model:'sizeCars',
-          key:'id'
-        }
+        type: Sequelize.STRING,
+        
       },
       created_by: {
-        type: Sequelize.INTEGER,
-        references:{
-          model:'users',
-          key:'id'
-        }
+        type: Sequelize.STRING,
+        
       },
       updated_by: {
-        type: Sequelize.INTEGER,
-        references:{
-          model:'users',
-          key:'id'
-        }
+        type: Sequelize.STRING,
+        
       },
       deleted_by: {
-        type: Sequelize.INTEGER,
-        references:{
-          model:'users',
-          key:'id'
-        }
+        type: Sequelize.STRING,
+        
+      },
+      deletedAt: {
+        type: Sequelize.DATE,
+        
       },
       createdAt: {
         allowNull: false,

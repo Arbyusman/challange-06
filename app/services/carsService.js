@@ -10,9 +10,9 @@ module.exports = {
     }
   },
 
-  async create(body){
+  async create(body,image){
     try{
-      const createCars = await carsRepository.create(body)
+      const createCars = await carsRepository.create(body,image)
       return createCars;
     }catch(err){
       throw err

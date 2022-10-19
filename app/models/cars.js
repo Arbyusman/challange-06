@@ -10,26 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      models.cars.belongsTo(models.sizeCar,{
-        foreignKey:'size_car',
-        as:"size_capacity",
-      });
-
-      models.cars.belongsTo(models.users,{
-        foreignKey:'created_by',
-        as:"create_by",
-      });
-
-      models.cars.belongsTo(models.users,{
-        foreignKey:'updated_by',
-        as:"update_by",
-      });
-
-      models.cars.belongsTo(models.users,{
-        foreignKey:'deleted_by',
-        as:"delete_by",
-      });
-
+  
     }
   }
   cars.init({
@@ -42,7 +23,6 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     paranoid:true,
-    deletedAt:'destroyTime',
     modelName: 'cars',
   });
   return cars;

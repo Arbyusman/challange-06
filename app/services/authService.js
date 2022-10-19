@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const userRepository = require("../repositories/userRepository");
+const usersRepository = require("../repositories/userRepository");
 
 async function encryptPassword(str) {
   try {
@@ -37,17 +37,39 @@ module.exports = {
         full_name,
         email,
         password: encryptedPassword,
+        role:'member',
       };
-      const user = await userRepository.create(body);
+      const user = await usersRepository.create(body);
       return user;
     } catch (err) {
       throw err;
     }
   },
+  async registerAdmin(full_name, email, password) {
+    
+    
+    try {
+      
+      const encryptedPassword = await encryptPassword(password);     
+      const body = {
+        full_name,
+        email,
+        password: encryptedPassword,
+        role:'Admin',
+      };     
+      
+      const user = await usersRepository.create(body);
+      return user;
+    } catch (err) {
+      throw err;
+    }
+  },
+  
+  
 
   async login(email, password) {
     try {
-      const user = await userRepository.finduser({ email });
+      const user = await usersRepository.finduser({ email });
 
       if (!user) {
         return false;
@@ -66,6 +88,7 @@ module.exports = {
       const token = createWebToken({
         id: user.id,
         email: user.email,
+        role:user.role,
       });
 
       const data = {
@@ -79,15 +102,31 @@ module.exports = {
   },
 
  async authorize(token) {
+  
     try{
-      const payload = verifyToken(token);
+      const payload =  verifyToken(token);
       const id = payload.id;
-      const user = await userRepository.finduserByPk(id);
+      const user = await usersRepository.finduserByPk(id);
       return user;
+      
     }catch(err){
       throw err;
     }
   },
 
+  async listUser() {
+    try {
+      const user = await usersRepository.findAlluser();
+      return user;
+    } catch (err) {
+      throw err
+    }
+  },
+
+  
+
+  
+
   encryptPassword,
+  verifyToken,
 };

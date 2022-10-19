@@ -1,3 +1,4 @@
+const { bindComplete } = require("pg-protocol/dist/messages");
 const carsService = require("../../../services/carsService");
 
 module.exports = {
@@ -19,8 +20,12 @@ module.exports = {
   },
 
   create(req, res) {
+    const body = req.body;
+    const image = req.file;
+    body.created_by= req.user.full_name;
+    
     carsService
-      .create(req.body)
+      .create(body,image)
       .then((cars) => {
         res.status(201).json({
           status: "OK",

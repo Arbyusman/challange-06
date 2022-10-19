@@ -1,17 +1,17 @@
-const { user } = require("../models");
-
+const { users } = require("../models");
 module.exports = {
-  create(body){
-    return user.create(body)
+  create(body) {
+    return users.create(body);
+  },
+  finduser(condition) {
+    return users.findOne({ where: condition });
   },
 
-  finduser(condition){
-    return user.findOne({where:condition})
+  findAlluser() {
+    return users.findAll();
   },
 
-  finduserByPk(id){
-    return user.findByPk(id);
-  }
-   
+  finduserByPk(id) {
+    return users.findByPk(id);
+  },
 };
- 
