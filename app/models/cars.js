@@ -10,17 +10,40 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      models.cars.belongsTo(models.sizeCar,{
+        foreignKey:'size_car',
+        as:"size",
+        onDelete:'CESCADE',
+      });
+
+      models.cars.belongsToMany(models.user,{
+        foreignKey:'created_by',
+        as:"created_by",
+      });
+
+      models.cars.belongsToMany(models.user,{
+        foreignKey:'updated_by',
+        as:"updated_by",
+      });
+
+      models.cars.belongsToMany(models.user,{
+        foreignKey:'deleted_by',
+        as:"deleted_by",
+      });
+
     }
   }
   cars.init({
-    user_id: DataTypes.INTEGER,
-    name_car: DataTypes.STRING,
+    car_name: DataTypes.STRING,
     rent_cost: DataTypes.INTEGER,
-    size_car: DataTypes.STRING,
-    image_car: DataTypes.STRING
+    size_car: DataTypes.INTEGER,
+    created_by: DataTypes.INTEGER,
+    updated_by: DataTypes.INTEGER,
+    deleted_by: DataTypes.INTEGER
   }, {
     sequelize,
+    paranoid:true,
+    deletedAt:'destroyTime',
     modelName: 'cars',
   });
   return cars;
