@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs");
 const authService = require("../../../services/authService");
-const userRepository = require("../../../repositories/userRepository")
+const userRepository = require("../../../repositories/userRepository");
 module.exports = {
   register(req, res) {
     const { full_name, email, password } = req.body;
@@ -64,6 +64,9 @@ module.exports = {
         });
       });
   },
+  async whoAmI(req, res) {
+    res.status(200).json(req.user);
+  },
 
   authorize(req, res, next) {
     const bearerToken = req.headers.authorization;
@@ -97,6 +100,28 @@ module.exports = {
         return;
       });
   },
+  authorizeAdmin(req, res, next) {
+    const bearerToken = req.headers.authorization;
+
+    if (!bearerToken) {
+      res.status(403).json({
+        message: "Unauthorized 1",
+      });
+      return;
+    }
+    const token = bearerToken.split("Bearer ")[1];
+    const payload = authService.verifyToken(token);
+    const userRole = payload.role;
+    console.log("payload", payload);
+
+    if (userRole !== "superAdmin" && userRole !== "Admin") {
+      res.status(403).json({ message: "Forbidden, Access denied" });
+      return;
+    }
+    const user = userRepository.finduserByPk(payload.id);
+    req.user = user;
+    next();
+  },
 
   authorizeSuperAdmin(req, res, next) {
     const bearerToken = req.headers.authorization;
@@ -110,19 +135,15 @@ module.exports = {
     const token = bearerToken.split("Bearer ")[1];
     const payload = authService.verifyToken(token);
     const userRole = payload.role;
-    console.log('payload',payload);
-
+    console.log("payload", payload);
 
     if (userRole !== "superAdmin") {
-      res.status(403).json({
-        message: "Unauthorized 4 ",
-      });
+      res.status(403).json({ message: "Forbidden, Access denied" });
+      return;
     }
     const user = userRepository.finduserByPk(payload.id);
     req.user = user;
-    next()
-
-    
+    next();
   },
 
   findAllUser(req, res) {

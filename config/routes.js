@@ -1,21 +1,26 @@
 const express = require("express");
 const controllers = require("../app/controllers");
+const { authController } = require("../app/controllers/api/v1");
 const cloudStorage = require("./cloudStorage");
 
 const apiRouter = express.Router();
 
+// Check Current User
+apiRouter.get(
+  "/api/v1/whoami",
+  authController.authorize,
+  controllers.api.v1.authController.whoAmI
+);
 //register member
 apiRouter.post("/api/v1/register", controllers.api.v1.authController.register);
+apiRouter.post("/api/v1/login", controllers.api.v1.authController.login);
 
 // register admin
 apiRouter.post(
-  "/api/v1/register_admin",
+  "/api/v1/admin/register",
   controllers.api.v1.authController.authorizeSuperAdmin,
   controllers.api.v1.authController.registerAdmin
 );
-
-// login all users
-apiRouter.post("/api/v1/login", controllers.api.v1.authController.login);
 
 //get list user
 apiRouter.get(
@@ -25,10 +30,15 @@ apiRouter.get(
 );
 
 //cars
-apiRouter.get("/api/v1/cars", controllers.api.v1.carsController.getAll);
-apiRouter.post(
+apiRouter.get(
   "/api/v1/cars",
   controllers.api.v1.authController.authorize,
+  cloudStorage.single("car_image"),
+  controllers.api.v1.carsController.getAll
+);
+apiRouter.post(
+  "/api/v1/cars",
+  controllers.api.v1.authController.authorizeAdmin,
   cloudStorage.single("car_image"),
   controllers.api.v1.carsController.create
 );
@@ -37,10 +47,16 @@ apiRouter.put(
   controllers.api.v1.authController.authorize,
   controllers.api.v1.carsController.update
 );
-apiRouter.get("/api/v1/cars/:id", controllers.api.v1.carsController.getById);
+apiRouter.get(
+  "/api/v1/cars/:id",
+  controllers.api.v1.authController.authorizeAdmin,
+  cloudStorage.single("car_image"),
+  controllers.api.v1.carsController.getById
+);
 apiRouter.delete(
   "/api/v1/cars/:id",
-  controllers.api.v1.authController.authorize,
+  controllers.api.v1.authController.authorizeAdmin,
+  cloudStorage.single("car_image"),
   controllers.api.v1.carsController.destroy
 );
 
