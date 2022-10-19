@@ -12,23 +12,22 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       models.cars.belongsTo(models.sizeCar,{
         foreignKey:'size_car',
-        as:"size",
-        onDelete:'CESCADE',
+        as:"size_capacity",
       });
 
-      models.cars.belongsToMany(models.user,{
+      models.cars.belongsTo(models.users,{
         foreignKey:'created_by',
-        as:"created_by",
+        as:"create_by",
       });
 
-      models.cars.belongsToMany(models.user,{
+      models.cars.belongsTo(models.users,{
         foreignKey:'updated_by',
-        as:"updated_by",
+        as:"update_by",
       });
 
-      models.cars.belongsToMany(models.user,{
+      models.cars.belongsTo(models.users,{
         foreignKey:'deleted_by',
-        as:"deleted_by",
+        as:"delete_by",
       });
 
     }

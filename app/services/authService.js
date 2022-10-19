@@ -88,4 +88,6 @@ module.exports = {
       throw err;
     }
   },
+
+  encryptPassword,
 };

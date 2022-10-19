@@ -11,8 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       models.sizeCar.hasMany(models.cars,{
-        foreignKey:'size',
-        as:"size",
+        foreignKey:'size_car',
+        as:"size_capacity",
       });
     }
   }
