@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       car_image: DataTypes.STRING,
       created_by: DataTypes.STRING,
       updated_by: DataTypes.STRING,
-      deleted_by: DATE,
+      deleted_by: DataTypes.STRING,
     },
     {
       sequelize,

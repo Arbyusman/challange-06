@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const usersRepository = require("../repositories/userRepository");
+const usersRepository = require("../repositories/usersRepository");
 
 async function encryptPassword(str) {
   try {

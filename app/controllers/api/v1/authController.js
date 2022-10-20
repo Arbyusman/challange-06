@@ -1,6 +1,6 @@
-const bcrypt = require("bcryptjs");
 const authService = require("../../../services/authService");
-const userRepository = require("../../../repositories/userRepository");
+const userRepository = require("../../../repositories/usersRepository");
+
 module.exports = {
   register(req, res) {
     const { full_name, email, password } = req.body;
@@ -105,7 +105,7 @@ module.exports = {
 
     if (!bearerToken) {
       res.status(403).json({
-        message: "Unauthorized 1",
+        message: "Unauthorized ",
       });
       return;
     }
@@ -115,7 +115,7 @@ module.exports = {
     console.log("payload", payload);
 
     if (userRole !== "superAdmin" && userRole !== "Admin") {
-      res.status(403).json({ message: "Forbidden, Access denied" });
+      res.status(402).json({ message: "Forbidden, Access denied" });
       return;
     }
     const user = userRepository.finduserByPk(payload.id);
@@ -127,7 +127,7 @@ module.exports = {
     const bearerToken = req.headers.authorization;
 
     if (!bearerToken) {
-      res.status(403).json({
+      res.status(402).json({
         message: "Unauthorized 1",
       });
       return;

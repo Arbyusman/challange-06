@@ -1,4 +1,3 @@
-const { bindComplete } = require("pg-protocol/dist/messages");
 const carsService = require("../../../services/carsService");
 
 module.exports = {
@@ -13,23 +12,30 @@ module.exports = {
       })
       .catch((err) => {
         res.status(400).json({
-          status:"fail",
+          status: "fail",
           message: err.message,
-        })
+        });
       });
   },
 
   create(req, res) {
     const body = req.body;
     const image = req.file;
-    body.created_by= req.user.full_name;
+
+    
     
     carsService
-      .create(body,image)
+      .createCarsService(body, image)
       .then((cars) => {
         res.status(201).json({
           status: "OK",
-          data: cars,
+          data: {
+            car_name: cars.car_name,
+            rent_cost: cars.rent_cost,
+            car_image: cars.image,
+            size_car: cars.size_car,
+            created_by: users.full_name
+        },
         });
       })
       .catch((err) => {
@@ -41,11 +47,15 @@ module.exports = {
   },
 
   update(req, res) {
+    const body = req.body;
+    const image = req.file;
+
     carsService
-      .update(req.body,req.params.id)
+      .updateCarsService(req.params.id,body,image)
       .then((cars) => {
-        res.status(200).json({
+        res.status(201).json({
           status: "OK",
+          data: cars,
         });
       })
       .catch((err) => {
@@ -74,8 +84,10 @@ module.exports = {
   },
 
   destroy(req, res) {
+    const body = req.body;
+
     carsService
-      .delete(req.params.id)
+      .delete(req.params.id, body)
       .then((cars) => {
         res.status(204).end();
       })
@@ -86,6 +98,4 @@ module.exports = {
         });
       });
   },
-
-
 };

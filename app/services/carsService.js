@@ -6,29 +6,34 @@ module.exports = {
       const listCars = await carsRepository.getAll();
       return listCars;
     } catch (err) {
-      throw err
+      throw err;
     }
   },
 
-  async create(body,image){
-    try{
-      const createCars = await carsRepository.create(body,image)
+  async createCarsService(body, image) {
+    
+    try {
+      const createCars = await carsRepository.createCars(body, image);
       return createCars;
-    }catch(err){
-      throw err
+    } catch (err) {
+      throw err;
     }
   },
 
-  update(body,id){
-    return carsRepository.update(body,id)
+  async updateCarsService(id, body, image) {
+    try {
+      const createCars = await carsRepository.updateCars(id, body, image);
+      return createCars;
+    } catch (err) {
+      throw err;
+    }
   },
 
-  delete(id){
-    return carsRepository.delete(id)
+  delete(id) {
+    return carsRepository.delete(id);
   },
 
-  getById(id){
-    return carsRepository.getById(id)
-  }
-
+  getById(id) {
+    return carsRepository.getById(id);
+  },
 };
