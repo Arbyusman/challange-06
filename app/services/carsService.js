@@ -10,20 +10,20 @@ module.exports = {
     }
   },
 
-  async createCarsService(body, image) {
+  async create(body, image) {
     
     try {
-      const createCars = await carsRepository.createCars(body, image);
+      const createCars = await carsRepository.create(body, image);
       return createCars;
     } catch (err) {
       throw err;
     }
   },
 
-  async updateCarsService(id, body, image) {
+  async update(id, body,image) {
     try {
-      const createCars = await carsRepository.updateCars(id, body, image);
-      return createCars;
+      const updateCars = await carsRepository.update(id, body,image);
+      return updateCars;
     } catch (err) {
       throw err;
     }

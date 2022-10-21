@@ -100,50 +100,74 @@ module.exports = {
         return;
       });
   },
-  authorizeAdmin(req, res, next) {
-    const bearerToken = req.headers.authorization;
+  async authorizeAdmin(req, res, next) {
+    try {
+      const bearerToken = req.headers.authorization;
 
-    if (!bearerToken) {
-      res.status(403).json({
+      if (!bearerToken) {
+        res.status(403).json({
+          message: "Unauthorized ",
+        });
+        return;
+      }
+      const token = bearerToken.split("Bearer ")[1];
+      const payload = authService.verifyToken(token);
+      const userRole = payload.role;
+      console.log("payload", payload);
+
+      if (userRole !== "superAdmin" && userRole !== "Admin") {
+        res.status(402).json({ message: "Forbidden, Access denied" });
+        return;
+      }
+      const getuser = await userRepository.finduserByPk(payload.id);
+
+      const user = {
+        full_name: getuser.full_name,
+        email: getuser.email,
+        role: getuser.role,
+      };
+      req.user = user;
+      next();
+    } catch (err) {
+      res.status(401).json({
         message: "Unauthorized ",
       });
-      return;
     }
-    const token = bearerToken.split("Bearer ")[1];
-    const payload = authService.verifyToken(token);
-    const userRole = payload.role;
-    console.log("payload", payload);
-
-    if (userRole !== "superAdmin" && userRole !== "Admin") {
-      res.status(402).json({ message: "Forbidden, Access denied" });
-      return;
-    }
-    const user = userRepository.finduserByPk(payload.id);
-    req.user = user;
-    next();
   },
 
-  authorizeSuperAdmin(req, res, next) {
-    const bearerToken = req.headers.authorization;
+ async  authorizeSuperAdmin(req, res, next) {
+    try {
+      const bearerToken = req.headers.authorization;
 
-    if (!bearerToken) {
-      res.status(402).json({
-        message: "Unauthorized 1",
+      if (!bearerToken) {
+        res.status(402).json({
+          message: "Unauthorized 1",
+        });
+        return;
+      }
+      const token = bearerToken.split("Bearer ")[1];
+      const payload = authService.verifyToken(token);
+      const userRole = payload.role;
+      console.log("payload", payload);
+
+      if (userRole !== "superAdmin") {
+        res.status(403).json({ message: "Forbidden, Access denied" });
+        return;
+      }
+      const getuser = await userRepository.finduserByPk(payload.id);
+
+      const user = {
+        full_name: getuser.full_name,
+        email: getuser.email,
+        role: getuser.role,
+      };
+      req.user = user;
+      next();
+    } catch (err) {
+      res.status(401).json({
+        message: "Unauthorized ",
       });
-      return;
     }
-    const token = bearerToken.split("Bearer ")[1];
-    const payload = authService.verifyToken(token);
-    const userRole = payload.role;
-    console.log("payload", payload);
-
-    if (userRole !== "superAdmin") {
-      res.status(403).json({ message: "Forbidden, Access denied" });
-      return;
-    }
-    const user = userRepository.finduserByPk(payload.id);
-    req.user = user;
-    next();
   },
 
   findAllUser(req, res) {

@@ -12,7 +12,7 @@ module.exports = {
     return cars.findAll();
   },
 
-  async createCars(body, image) {
+  async create(body, image) {
     const fileBase64 = image.buffer.toString("base64");
     const file = `data:${image.mimetype};base64,${fileBase64}`;
 
@@ -20,7 +20,8 @@ module.exports = {
       const result = await cloudinary.uploader.upload(file, {
         folder: "image",
       });
-      body.car_image = result.secure_url;
+
+      body.car_image = result.url;
 
       return cars.create(body);
     } catch (err) {
@@ -30,18 +31,18 @@ module.exports = {
       });
     }
   },
-  async updateCars(body, image, id) {
-    
+
+  async update(id, body, image) {
     const fileBase64 = image.buffer.toString("base64");
-    console.log('filebase',fileBase64);
+    console.log("filebase", fileBase64);
     const file = `data:${image.mimetype};base64,${fileBase64}`;
     try {
       const result = await cloudinary.uploader.upload(file, {
         folder: "image",
       });
-      body.car_image = result.secure_url;
-
-      return cars.update(body,{where: {id}});
+      body.car_image = result.url;
+      console.log("update cars");
+      return cars.update(body, { where: { id: id }, returning: true });
     } catch (err) {
       console.log(err);
       return res.status(400).json({

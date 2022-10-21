@@ -87,8 +87,10 @@ module.exports = {
 
       const token = createWebToken({
         id: user.id,
+        full_name:user.full_name,
         email: user.email,
         role:user.role,
+        nameAndRole:user.role.full_name,
       });
 
       const data = {

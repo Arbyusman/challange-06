@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "Challange-06",
-    "description": "cahllange-06 Management Rest API",
+    "description": "challange-06  Rest API doc" ,
     "version": "1.0.0"
   },
   "servers": [

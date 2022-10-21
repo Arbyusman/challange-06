@@ -21,22 +21,27 @@ module.exports = {
   create(req, res) {
     const body = req.body;
     const image = req.file;
-
-    
+    body.created_by=req.user.full_name;
     
     carsService
-      .createCarsService(body, image)
+      .create(body, image)
       .then((cars) => {
         res.status(201).json({
           status: "OK",
-          data: {
+          data: 
+          {
+            id: cars.id,
             car_name: cars.car_name,
             rent_cost: cars.rent_cost,
-            car_image: cars.image,
             size_car: cars.size_car,
-            created_by: users.full_name
-        },
+            car_image: cars.car_image,
+            created_by: cars.created_by,
+            createdAt: cars.createdAt,
+            updatedAt: cars.updatedAt,
+          },
+
         });
+        
       })
       .catch((err) => {
         res.status(422).json({
@@ -46,16 +51,28 @@ module.exports = {
       });
   },
 
-  update(req, res) {
+  update(req, res) {   
     const body = req.body;
     const image = req.file;
-
+    body.updated_by=req.user.full_name;
+    
     carsService
-      .updateCarsService(req.params.id,body,image)
-      .then((cars) => {
-        res.status(201).json({
-          status: "OK",
-          data: cars,
+    .update(req.params.id,body,image )
+    .then((cars) => {
+      console.log('cars',cars);
+    
+      res.status(203).json({
+        status: "OK",
+          dataValues: {          
+            id: cars.id,
+            car_name: cars.car_name,
+            rent_cost: cars.rent_cost,
+            size_car: cars.size_car,
+            car_image: cars.car_image,
+            updated_by: cars.updated_by,
+            createdAt: cars.createdAt,
+            updatedAt: cars.updatedAt,
+          },
         });
       })
       .catch((err) => {
@@ -84,7 +101,8 @@ module.exports = {
   },
 
   destroy(req, res) {
-    const body = req.body;
+    const body = req.body;    
+    body.deleted_by=req.user.full_name;
 
     carsService
       .delete(req.params.id, body)
