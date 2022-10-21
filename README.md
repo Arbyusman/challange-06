@@ -1,23 +1,30 @@
 # challange-05
+
 Repository ini ditujukan sebagai boilerplate dalam membuat sebuah HTTP Server menggunakan Express.js
 Repository ini menggunakan Service Repository Pattern.
 
 ## Email & password superAdmin
+
 ```
 - Email    : arby@gmail.com
 - Password : P@5sW0rd!!!
 
 ```
+
 ## Run Server
 
 To run the server in normal mode:
+```
     yarn start
-
+```
 To run the server in development mode:
+    ``` 
     yarn develop
-
+    ```
 To run the server in development mode:
-    Server listening on `http://localhost:2424` .
+    ```
+    Server listening on `http://localhost:2424`
+    ```
 
 
 ## Database Management
@@ -32,3 +39,4 @@ Di dalam repository ini sudah terdapat beberapa script yang dapat digunakan dala
 ## DB Design
 ![App Screenshot](https://res.cloudinary.com/duoehn6px/image/upload/v1666351785/image/img02mwxmgcq0ljtua5s.png)
 
+````
