@@ -1,6 +1,5 @@
-# challange-05
+# challange-06
 
-Repository ini ditujukan sebagai boilerplate dalam membuat sebuah HTTP Server menggunakan Express.js
 Repository ini menggunakan Service Repository Pattern.
 
 ## Email & password superAdmin
