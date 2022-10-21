@@ -11,14 +11,14 @@ Repository ini menggunakan Service Repository Pattern.
 ## Run Server
 
 To run the server in normal mode:
-
     yarn start
 
 To run the server in development mode:
-
     yarn develop
 
-Server will run at `http://localhost:8000` by default.
+To run the server in development mode:
+    Server listening on `http://localhost:2424` .
+
 
 ## Database Management
 
