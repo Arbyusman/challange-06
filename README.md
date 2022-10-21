@@ -8,13 +8,17 @@ Repository ini menggunakan Service Repository Pattern.
 - Password : P@5sW0rd!!!
 
 ```
+## Run Server
 
-## ERD
-![App Screenshot](https://res.cloudinary.com/duoehn6px/image/upload/v1666351785/image/img02mwxmgcq0ljtua5s.png)
+To run the server in normal mode:
 
+    yarn start
 
+To run the server in development mode:
 
+    yarn develop
 
+Server will run at `http://localhost:8000` by default.
 
 ## Database Management
 
@@ -25,3 +29,6 @@ Di dalam repository ini sudah terdapat beberapa script yang dapat digunakan dala
 - `yarn db:migrate` digunakan untuk menjalankan database migration
 - `yarn db:seed` digunakan untuk melakukan seeding
 - `yarn db:rollback` digunakan untuk membatalkan migrasi terakhir
+## DB Design
+![App Screenshot](https://res.cloudinary.com/duoehn6px/image/upload/v1666351785/image/img02mwxmgcq0ljtua5s.png)
+
