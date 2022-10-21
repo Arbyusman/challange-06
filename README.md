@@ -10,7 +10,7 @@ Repository ini menggunakan Service Repository Pattern.
 ```
 
 ## ERD
-![App Screenshot](https://res.cloudinary.com/duoehn6px/image/upload/v1665138611/image/ses0bhfqipcwc8coxm8y.png)
+![App Screenshot](https://res.cloudinary.com/duoehn6px/image/upload/v1666351785/image/img02mwxmgcq0ljtua5s.png)
 
 
 
