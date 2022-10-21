@@ -1,17 +1,20 @@
-# Binar: Express.js
-
+# challange-05
 Repository ini ditujukan sebagai boilerplate dalam membuat sebuah HTTP Server menggunakan Express.js
-Repository ini menggunakan Service Repository Pattern, yang artinya di dalam repository ini terdapat modul model, controller, service, dan repository.
+Repository ini menggunakan Service Repository Pattern.
 
-## Getting Started
-
-Untuk mulai membuat sebuah implementasi dari HTTP Server, mulainya menginspeksi file [`app/index.js`](./app/index.js), dan lihatlah salah satu contoh `controller` yang ada di [`app/controllers/mainController.js`](./app/controllers/mainController.js)
-
-Lalu untuk menjalankan development server, kalian tinggal jalanin salah satu script di package.json, yang namanya `develop`.
-
-```sh
-yarn develop
+## Email & password superAdmin
 ```
+- Email    : arby@gmail.com
+- Password : P@5sW0rd!!!
+
+```
+
+## ERD
+![App Screenshot](https://res.cloudinary.com/duoehn6px/image/upload/v1665138611/image/ses0bhfqipcwc8coxm8y.png)
+
+
+
+
 
 ## Database Management
 
