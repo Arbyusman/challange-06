@@ -37,7 +37,7 @@ module.exports = {
         full_name,
         email,
         password: encryptedPassword,
-        role:'member',
+        role: "member",
       };
       const user = await usersRepository.create(body);
       return user;
@@ -46,26 +46,21 @@ module.exports = {
     }
   },
   async registerAdmin(full_name, email, password) {
-    
-    
     try {
-      
-      const encryptedPassword = await encryptPassword(password);     
+      const encryptedPassword = await encryptPassword(password);
       const body = {
         full_name,
         email,
         password: encryptedPassword,
-        role:'Admin',
-      };     
-      
+        role: "Admin",
+      };
+
       const user = await usersRepository.create(body);
       return user;
     } catch (err) {
       throw err;
     }
   },
-  
-  
 
   async login(email, password) {
     try {
@@ -87,10 +82,9 @@ module.exports = {
 
       const token = createWebToken({
         id: user.id,
-        full_name:user.full_name,
+        full_name: user.full_name,
         email: user.email,
-        role:user.role,
-        nameAndRole:user.role.full_name,
+        role: user.role,
       });
 
       const data = {
@@ -103,15 +97,13 @@ module.exports = {
     }
   },
 
- async authorize(token) {
-  
-    try{
-      const payload =  verifyToken(token);
+  async authorize(token) {
+    try {
+      const payload = verifyToken(token);
       const id = payload.id;
       const user = await usersRepository.finduserByPk(id);
       return user;
-      
-    }catch(err){
+    } catch (err) {
       throw err;
     }
   },
@@ -121,13 +113,9 @@ module.exports = {
       const user = await usersRepository.findAlluser();
       return user;
     } catch (err) {
-      throw err
+      throw err;
     }
   },
-
-  
-
-  
 
   encryptPassword,
   verifyToken,
