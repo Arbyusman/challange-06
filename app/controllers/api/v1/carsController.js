@@ -26,7 +26,7 @@ module.exports = {
     carsService
       .create(body, image)
       .then((cars) => {
-        res.status(201).json({
+        res.status(200).json({
           status: "OK",
           data: 
           {
@@ -61,18 +61,20 @@ module.exports = {
     .then((cars) => {
       console.log('cars',cars);
     
-      res.status(203).json({
+      res.status(200).json({
         status: "OK",
-          dataValues: {          
-            id: cars.id,
-            car_name: cars.car_name,
-            rent_cost: cars.rent_cost,
-            size_car: cars.size_car,
-            car_image: cars.car_image,
-            updated_by: cars.updated_by,
-            createdAt: cars.createdAt,
-            updatedAt: cars.updatedAt,
-          },
+        message: "Update car data successfully",
+        // data: 
+        //   {
+        //     id: cars.id,
+        //     car_name: cars.car_name,
+        //     rent_cost: cars.rent_cost,
+        //     size_car: cars.size_car,
+        //     car_image: cars.car_image,
+        //     updated_by: cars.updated_by,
+        //     createdAt: cars.createdAt,
+        //     updatedAt: cars.updatedAt,
+        //   },
         });
       })
       .catch((err) => {
@@ -83,22 +85,7 @@ module.exports = {
       });
   },
 
-  getById(req, res) {
-    carsService
-      .getById(req.params.id)
-      .then((cars) => {
-        res.status(200).json({
-          status: "OK",
-          data: cars,
-        });
-      })
-      .catch((err) => {
-        res.status(422).json({
-          status: "FAIL",
-          message: err.message,
-        });
-      });
-  },
+  
 
   destroy(req, res) {
     const body = req.body;    
@@ -107,7 +94,11 @@ module.exports = {
     carsService
       .delete(req.params.id, body)
       .then((cars) => {
-        res.status(204).end();
+        res.status(200).json({
+          status: "OK",
+          message: "delete car data successfully",
+          
+        });
       })
       .catch((err) => {
         res.status(422).json({

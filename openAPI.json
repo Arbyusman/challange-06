@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "Challange-06",
-    "description": "challange-06  Rest API doc" ,
+    "description": "challange-06  Rest API doc",
     "version": "1.0.0"
   },
   "servers": [
@@ -146,9 +146,9 @@
         }
       }
     },
-    "/admin/create": {
+    "/admin/register": {
       "post": {
-        "summary": "Create admin (Super Admin)",
+        "summary": "Create admin (By Super Admin)",
         "tags": [
           "Users"
         ],
@@ -436,7 +436,8 @@
                   },
                   "car_image": {
                     "type": "string",
-                    "example": "xxxxx.png"
+                    "format": "binary",
+                    "example": "xxxxx"
                   }
                 }
               }
@@ -672,6 +673,7 @@
                   },
                   "car_image": {
                     "type": "string",
+                    "format": "binary",
                     "example": "xxxxx.png"
                   }
                 }
@@ -691,42 +693,9 @@
                       "type": "string",
                       "example": "OK"
                     },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "integer",
-                          "example": 1
-                        },
-                        "car_name": {
-                          "type": "string",
-                          "example": "Avanza"
-                        },
-                        "rent_cost": {
-                          "type": "integer",
-                          "example": 20000
-                        },
-                        "size_car": {
-                          "type": "string",
-                          "example": "medium"
-                        },
-                        "car_image": {
-                          "type": "string",
-                          "example": "https://xxxxx/xxx/xxx.png"
-                        },
-                        "created_by": {
-                          "type": "string",
-                          "example": "arbiansyah"
-                        },
-                        "updatedAt": {
-                          "type": "string",
-                          "example": "2022-10-20T18:04:13.907Z"
-                        },
-                        "createdAt": {
-                          "type": "string",
-                          "example": "2022-10-20T18:04:13.907Z"
-                        }
-                      }
+                    "message": {
+                      "type": "string",
+                      "example": "Update car data successfully"
                     }
                   }
                 }
@@ -766,7 +735,7 @@
                     },
                     "message": {
                       "type": "string",
-                      "example": "Failed to create car"
+                      "example": "Failed to upadate car"
                     }
                   }
                 }
@@ -806,13 +775,13 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "message": {
+                    "status": {
                       "type": "string",
-                      "example": "Car delete successfully"
+                      "example": "OK"
                     },
                     "data": {
-                      "type": "integer",
-                      "example": 1
+                      "type": "string",
+                      "example": "delete car data successfully"
                     }
                   }
                 }
@@ -826,6 +795,10 @@
                 "schema": {
                   "type": "object",
                   "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "FAIL"
+                    },
                     "message": {
                       "type": "string",
                       "example": "Unauthorized"
@@ -842,8 +815,12 @@
                 "schema": {
                   "type": "object",
                   "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "FAIL"
+                    },
                     "error": {
-                      "type": "string"
+                      "type": "eror message"
                     }
                   }
                 }
@@ -861,7 +838,7 @@
     "/whoami": {
       "get": {
         "summary": "Returns current user",
-        "description": "List cars",
+        "description": "curent user",
         "tags": [
           "Users"
         ],
@@ -897,7 +874,7 @@
                       "type": "string",
                       "example": "2022-10-20T16:41:22.199Z"
                     },
-                    "created": {
+                    "updatedAt": {
                       "type": "string",
                       "example": "2022-10-20T16:41:22.199Z"
                     }

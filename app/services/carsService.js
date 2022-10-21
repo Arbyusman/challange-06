@@ -29,11 +29,9 @@ module.exports = {
     }
   },
 
-  delete(id) {
-    return carsRepository.delete(id);
+  delete(id,body) {
+    return carsRepository.delete(id,body);
   },
 
-  getById(id) {
-    return carsRepository.getById(id);
-  },
+  
 };

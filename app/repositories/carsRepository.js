@@ -50,10 +50,13 @@ module.exports = {
       });
     }
   },
-  delete(id) {
-    return cars.destroy({ where: { id } });
+  async delete(id,body) {
+    try{
+      await cars.update(body,{ where: { id } });
+      return cars.destroy({ where: { id } });
+    }catch(err){
+      throw err;
+    }
   },
-  getById(id) {
-    return cars.findByPk(id);
-  },
+  
 };

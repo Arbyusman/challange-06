@@ -19,6 +19,12 @@ apiRouter.get(
 // Auth Login (All User) & Register (Member)
 apiRouter.post("/api/v1/register", controllers.api.v1.authController.register);
 apiRouter.post("/api/v1/login", controllers.api.v1.authController.login);
+// register admin
+apiRouter.post(
+  "/api/v1/admin/register",
+  controllers.api.v1.authController.authorizeSuperAdmin,
+  controllers.api.v1.authController.registerAdmin
+);
 
 
 
@@ -28,12 +34,6 @@ apiRouter.get(
   controllers.api.v1.authController.authorize,
   cloudStorage.single("car_image"),
   controllers.api.v1.carsController.getAll
-);
-apiRouter.get(
-  "/api/v1/cari/:id",
-  controllers.api.v1.authController.authorizeAdmin,
-  cloudStorage.single("car_image"),
-  controllers.api.v1.carsController.getById
 );
 apiRouter.post(
   "/api/v1/car/create",
@@ -56,12 +56,7 @@ apiRouter.delete(
 );
 
 
-// register admin
-apiRouter.post(
-  "/api/v1/admin/register",
-  controllers.api.v1.authController.authorizeSuperAdmin,
-  controllers.api.v1.authController.registerAdmin
-);
+
 
 
 apiRouter.get("/api/v1/errors", () => {

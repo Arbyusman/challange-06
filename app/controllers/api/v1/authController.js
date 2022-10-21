@@ -65,7 +65,14 @@ module.exports = {
       });
   },
   async whoAmI(req, res) {
-    res.status(200).json(req.user);
+    try{      
+      res.status(200).json(req.user);
+    }catch(err){
+      res.status(404).json({
+        status:"FAIL",
+        message:err,
+      });
+    }
   },
 
   authorize(req, res, next) {
@@ -170,20 +177,5 @@ module.exports = {
     }
   },
 
-  findAllUser(req, res) {
-    authService
-      .listUser()
-      .then((users) => {
-        res.status(200).json({
-          status: "Ok",
-          data: users,
-        });
-      })
-      .catch((err) => {
-        res.status(400).json({
-          status: "fail",
-          message: err.message,
-        });
-      });
-  },
+ 
 };

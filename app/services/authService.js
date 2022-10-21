@@ -108,14 +108,7 @@ module.exports = {
     }
   },
 
-  async listUser() {
-    try {
-      const user = await usersRepository.findAlluser();
-      return user;
-    } catch (err) {
-      throw err;
-    }
-  },
+  
 
   encryptPassword,
   verifyToken,

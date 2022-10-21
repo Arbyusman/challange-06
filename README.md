@@ -17,7 +17,7 @@ Repository ini menggunakan Service Repository Pattern.
 
 ```
 - To run the server in normal mode              : yarn start
-- To run the server in development mode         :yarn develop
+- To run the server in development mode         : yarn develop
 -  Server listening on `http://localhost:2424`
 ```
 
